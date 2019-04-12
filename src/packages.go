@@ -61,9 +61,10 @@ func runBasic() {
 		fmt.Print(f(), " ,")
 	}
 	fmt.Println()
-	f1 := basic.Adder() //Adder返回一个函数，此函数接收一个int类型的参数
+	f1 := basic.Adder() // Adder返回一个函数（闭包），此函数接收一个int类型的参数
 	f2 := basic.Adder()
 	fmt.Println(f1(10), "  ", f2(10))
+	fmt.Printf("返回的是两个不同的闭包实例， %p , %p\n", &f1, &f2)
 }
 
 func runMethod_Interface() {
