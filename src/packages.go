@@ -8,8 +8,10 @@ import 用于导入包，可以用圆括号导入多个包，一个包一行
 */
 import (
 	"./basic"
+	"./go_routine"
 	"./method_interface"
 	"fmt"
+	"time"
 )
 
 func init() {
@@ -19,7 +21,8 @@ func init() {
 func main() {
 	//fmt.Println("Hello World")
 	//runBasic()
-	runMethod_Interface()
+	//runMethod_Interface()
+	goroutine()
 }
 
 func runBasic() {
@@ -157,6 +160,22 @@ func runMethod_Interface() {
 
 	person3 := method_interface.GetAddress()
 	fmt.Printf("in caller:&person3=%p ,person3=%p\n", &person3, person3)
+}
+
+func goroutine() {
+	fmt.Println("------------ go routine ------------")
+	go go_routine.Say("world")
+	go_routine.Say("hello")
+
+	fmt.Println("------------ 信道 ------------")
+	// 创建一个信道，信道上的发送和接收操作在另一端准备好之前都会阻塞，使用信道前必须先创建信道
+	//ch := make(chan int)
+	go_routine.Sum_Invocation()
+	go_routine.Range_Close()
+	go_routine.Select()
+	go_routine.MutexDemo()
+	// 主线程休眠5s等待 所有的goroutine执行完
+	time.Sleep(5 * time.Second)
 }
 
 func add(x, y int) int {
