@@ -7,7 +7,7 @@ func Adder() func(int) int {
 	sum := 0
 	return func(x int) int {
 		sum += x
-		fmt.Printf("sum 地址： %p \n", &sum)
+		fmt.Printf("闭包中的 sum 变量地址： %p \n", &sum)
 		return sum
 	}
 }
