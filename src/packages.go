@@ -17,9 +17,9 @@ func init() {
 }
 
 func main() {
-	fmt.Println("Hello World")
-	runBasic()
-	//runMethod_Interface()
+	//fmt.Println("Hello World")
+	//runBasic()
+	runMethod_Interface()
 }
 
 func runBasic() {
@@ -68,9 +68,95 @@ func runBasic() {
 }
 
 func runMethod_Interface() {
+	fmt.Println("----------- 方法接收者 -----------")
 	v := method_interface.Vertex{3, 4}
 	i := method_interface.Number{3}
-	fmt.Println(v.Abs(), "   ", i.Abs())
+	// Abs方法中修改了X,Y的值，但是在打印后可以看到v中的X,Y没有变化，说明传入的对象v的一个副本；
+	// 与此相对的有  接收者指针，此时在方法中修改接收者参数的值会导致原实例的值发生改变，详情见下面的v.Abs()与v.Scale()方法
+	fmt.Println(v.Abs(), "--", i.Abs())
+	fmt.Println(v.X, "==", v.Y)
+	v.Scale(2.0)
+	fmt.Println(v.X, "==", v.Y)
+
+	fmt.Println("----------- 接收者既可以为值，也可以为指针，编译器会自动对其处理，转成目标接收者 -----------")
+	// Abs()方法定义时以值为接收者，这里用Vertex指针作为接收者去执行方法，编译器会自动转换。相当于(*p).Abs()
+	// 同样的，Scala方法的接收者是指针，上面的 v.Scale(2.0) 会被解释成 (&v).Scale(2.0)
+	p := &method_interface.Vertex{6, 8}
+	fmt.Println(p.Abs())
+
+	fmt.Println("----------- 接口：一组方法的集合，接口变量可以保存实现了这些方法的具体实例 -----------")
+	var a method_interface.Abser
+	myInteger := method_interface.MyInteger(10)
+	a = myInteger
+	fmt.Printf("接收类型MyInteger：%T, %d\n", a, a.Abs())
+	a = &myInteger
+	fmt.Printf("接收类型MyInteger的地址：%T, %d\n", a, a.Abs())
+	iv := method_interface.V{3, 4}
+
+	// a = iv  // 报错，原因是为V定义的Abs()方法是以*V（V的指针）作为接收者
+	// fmt.Println("接收类型V：", a, a.Abs())
+
+	a = &iv
+	fmt.Printf("接收类型V的地址 %T, %d\n", a, a.Abs())
+
+	var i1 method_interface.I // **i1此时为nil接口**
+	var t *method_interface.S
+	fmt.Printf("接口中没有值，也没有具体类型 ，%v , %T\n", i1, i1)
+	fmt.Println("nil接口无法进行方法调用，即当前调用i1.Method()会报错")
+	fmt.Println("----------- 接收者为nil，方法也会被nil接收者调用 -----------")
+	i1 = t // ** i1为S类型，但是其值为nil **
+	i1.Method()
+
+	i1 = &method_interface.S{"hahaha"}
+	i1.Method()
+
+	// 指定了零个方法的接口被称为 空接口
+	fmt.Println("----------- 空接口可以保存任意类型的值 -----------")
+	var itf interface{}
+	itf = 100
+	// 空接口可以用来处理未知类型的参数值，fmt.Println()方法就是接收 interface{} 类型的参数
+	fmt.Printf("%T, %v\n", itf, itf)
+
+	// 断言类型，类似于java中的 instanceof
+	// 断言类型有两种返回方式，单值返回时如果不是对应的类型，则会报错。
+	// 下面的示例用于判断itf是否是int类型，如果是，将该值返回，否则返回零值
+	as1 := itf.(int)
+	fmt.Println(as1)
+	// as2 := itf.(string) // 报错 panic
+	as3, ok := itf.(float64)
+	fmt.Println(as3, "  ", ok)
+
+	// type switches，根据类型进入不同switch分支
+	// 类型选择与类型断言 i.(T) 的语法一致，只是具体的类型T变成了关键字type，具体查看下面的Do方法
+	fmt.Println("----------- 类型选择 -----------")
+	method_interface.Do(100)
+	method_interface.Do("hahah")
+
+	fmt.Println("----------- 定义结构体的String方法 -----------")
+	person := method_interface.Person{"wuzhsh", 27}
+	fmt.Println(person)
+
+	fmt.Println("----------- error -----------")
+	method_interface.ErrorDemo()
+	e := method_interface.Run()
+	if e != nil {
+		fmt.Println(e)
+	}
+
+	fmt.Println("----------- reader -----------")
+	method_interface.ReaderDemo()
+	_, err := method_interface.Devide(100, 0)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println("----------- 返回值按值传递 -----------")
+	person2 := method_interface.GetInstance()
+	// 这里可以看到返回的对象地址与在方法中创建的对象地址不同，所以这里拿到的是方法中创建的对象的一个副本（一个新的对象）
+	fmt.Printf("in caller:%p \n", &person2)
+
+	person3 := method_interface.GetAddress()
+	fmt.Printf("in caller:&person3=%p ,person3=%p\n", &person3, person3)
 }
 
 func add(x, y int) int {
