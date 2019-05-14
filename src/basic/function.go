@@ -1,5 +1,10 @@
 package basic
 
+// 接收一个string参数，没有返回值
+func Println(s string) {
+	print(s + "\n")
+}
+
 // 接收两个参数，一个返回值，大写开头，所以可以直接在(basic)包外使用
 func Add(x int, y int) int {
 	return x + y

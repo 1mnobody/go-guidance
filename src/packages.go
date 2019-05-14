@@ -31,6 +31,7 @@ func runBasic() {
 	//fmt.Println(basic.unExportedVar)
 
 	fmt.Println("-------- function --------")
+	basic.Println("这是一个无返回值的函数")
 	fmt.Println(basic.Add(1, 2))
 	fmt.Println(basic.Swap("123", "abc"))
 	fmt.Println(basic.NamedRet(12))
