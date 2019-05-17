@@ -53,8 +53,9 @@ func Select() {
 	quit := make(chan int)
 	go func() {
 		for i := 0; i < 10; i++ {
-			fmt.Printf("%v  ", <-c)
+			fmt.Printf("%v ", <-c)
 		}
+		// 这里,quit在for循环执行完之前，一直是没有数据进入的，所以在下面的select语句中会先执行 第一个case或者default
 		quit <- 0
 	}() // 定义了一个匿名函数，在此函数中向两个信道中写数据
 
@@ -69,7 +70,7 @@ func Select() {
 			fmt.Println("quit")
 			return
 		default:
-			fmt.Println("执行default，休眠20ms")
+			fmt.Println("执行default，休眠10ms")
 			time.Sleep(10 * time.Millisecond)
 		}
 	}

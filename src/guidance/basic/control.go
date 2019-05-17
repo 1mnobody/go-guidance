@@ -7,7 +7,7 @@ import (
 )
 
 // Go 只有一种循环结构: for
-func Loop()  {
+func Loop() {
 	sum := 0
 	// 初始化语句; 条件表达式; 后置语句
 	for i := 0; i < 100; i++ {
@@ -17,7 +17,7 @@ func Loop()  {
 
 	// 省略初始化和后置语句，这种情况下，可以去掉分号（相当于其他语言中的while语句）
 	sum2 := 1
-	for ; sum2 < 100; {
+	for sum2 < 100 {
 		sum2 += sum2
 	}
 	fmt.Println(sum2)
@@ -44,17 +44,15 @@ func Sum(x, y int) int {
 	return x + y
 }
 
-
 func Sqrt(x float64) {
 	// 牛顿法 计算一个数的平方根
-	z := x/2
-	for x - z*z > 0.0001 || x - z*z < -0.0001 {
-		z -= (z*z - x) / (2*z)
+	z := x / 2
+	for x-z*z > 0.0001 || x-z*z < -0.0001 {
+		z -= (z*z - x) / (2 * z)
 	}
 	// 与 math 库计算出来的数据比较
 	fmt.Println(z, "   ", math.Sqrt(x))
 }
-
 
 func Switch() {
 	// 运行此函数，只会输出Windows，说明Go语言中的switch只会运行选定的case语句。

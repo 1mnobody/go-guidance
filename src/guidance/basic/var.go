@@ -9,7 +9,7 @@ import (
 var c, py, java string
 
 // const关键字定义常量，常量可以是字符、字符串、布尔值或数值。常量不能用 := 语法声明。
-const name  = "abc"
+const name = "abc"
 const (
 	conA = 1
 	conB = "1"
