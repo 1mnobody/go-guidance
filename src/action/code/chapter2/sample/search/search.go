@@ -1,25 +1,11 @@
 package search
 
 import (
-	"encoding/json"
 	"log"
-	"os"
 	"sync"
 )
 
 var matchers = make(map[string]Matcher)
-
-func RetriveFeeds() ([]*Feed, error) {
-	file, err := os.Open(dataFile)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	var feeds []*Feed
-	err = json.NewDecoder(file).Decode(&feeds)
-	return feeds, err
-}
 
 func Run(searchTerm string) {
 	feeds, err := RetriveFeeds()
@@ -48,4 +34,13 @@ func Run(searchTerm string) {
 
 	Display(results)
 
+}
+
+func Register(feetType string, matcher Matcher) {
+	if _, exists := matchers[feetType]; exists {
+		log.Fatalln(feetType, "Matcher already registered")
+	}
+
+	log.Println("Register", feetType, "matcher")
+	matchers[feetType] = matcher
 }
