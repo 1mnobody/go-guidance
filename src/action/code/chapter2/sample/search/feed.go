@@ -5,7 +5,8 @@ import (
 	"os"
 )
 
-const dataFile = "data/data.json"
+// 先使用绝对路径
+const dataFile = "E:\\work\\go\\idea\\go-guidance\\src\\action\\code\\chapter2\\sample\\data\\data.json"
 
 type Feed struct {
 	Name string `json:"site"`
