@@ -33,8 +33,8 @@ func Run(searchTerm string) {
 	go func() {
 		// 等待所有的 Matcher 处理完毕
 		waitGroup.Wait()
-		// 关闭results，结束Display中的 for range 循环（没有close，for range会一直执行）
-		//close(results)
+		// 关闭results，结束Display中的 for range 循环（没有close的话，for range会一直执行）
+		close(results)
 	}()
 
 	Display(results)
