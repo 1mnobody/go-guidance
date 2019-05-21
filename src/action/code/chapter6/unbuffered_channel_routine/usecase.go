@@ -14,7 +14,8 @@ func init() {
 }
 
 func main() {
-	// court是一个无缓冲的channel,所以 ** 发送会阻塞直到数据被接收，接收也会阻塞直到能读到数据 **
+	// court是一个无缓冲的channel,所以
+	// ** 发送会阻塞直到数据被接收，接收也会阻塞直到能读到数据 **
 	court := make(chan int)
 	wg.Add(2)
 
