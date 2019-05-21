@@ -15,12 +15,21 @@ type user struct {
 	email string
 }
 
+type admin struct {
+	name  string
+	email string
+}
+
 func (u *user) notify(in string) string {
 	return "notify of [" + u.name + ", " + u.email + "] -- " + in
 }
 
 func (u user) notify2() {
 	fmt.Println(u.name + " -- " + u.email)
+}
+
+func (a *admin) notify(in string) string {
+	return "admin -- [" + a.name + "," + a.email + "]"
 }
 
 func main() {
@@ -35,6 +44,10 @@ func main() {
 	// 值接收者，则对应类型的值以及指针都是实现了该接口
 	sendNotification2(u)
 	sendNotification2(&u)
+
+	// 实现了notify方法的都可以作为参数传入
+	a := &admin{"admin", "admin123@123.com"}
+	sendNotification(a)
 }
 
 func sendNotification(n notifier) {
