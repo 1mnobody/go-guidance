@@ -62,7 +62,8 @@ func Select() {
 	x, y := 0, 1
 	for {
 		// select语句可以让goroutine等待多个通信操作，select会阻塞到某个分支可以继续执行时执行该分支，如果多个分支都可以执行
-		// 则会随机选择一个分支，如果有default分支，则在其他分支中的信道数据没有准备好时就会执行default分支
+		// 则会随机选择一个分支，如果有default分支，则在其他分支中的信道数据没有准备好时就会执行default分支。
+		// close掉的channel，也是可以执行的，尝试Select2方法
 		select {
 		case c <- x:
 			x, y = y, x+y
@@ -73,5 +74,28 @@ func Select() {
 			fmt.Println("执行default，休眠10ms")
 			time.Sleep(10 * time.Millisecond)
 		}
+	}
+}
+
+func Select2() {
+	c := make(chan int)
+	go func() {
+		time.Sleep(2 * time.Second)
+		close(c)
+	}()
+
+	var count = 0
+	for {
+		select {
+		case <-c:
+			if count > 5 {
+				return
+			}
+			count++
+			fmt.Println("chan closed" + string(count))
+		default:
+			fmt.Println("---------")
+		}
+
 	}
 }

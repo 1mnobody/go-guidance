@@ -173,6 +173,7 @@ func goroutine() {
 	go_routine.Sum_Invocation()
 	go_routine.Range_Close()
 	go_routine.Select()
+	//go_routine.Select2()
 	go_routine.MutexDemo()
 	// 主线程休眠5s等待 所有的goroutine执行完
 	time.Sleep(5 * time.Second)
