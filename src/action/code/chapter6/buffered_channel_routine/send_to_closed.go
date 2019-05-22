@@ -55,7 +55,7 @@ func recvFromClosedChannel() {
 			// 当 ** channel关闭并且channel中没有数据了 **，此值为false
 			v, ok := <-ch
 
-			fmt.Printf("[value %s, ok %t, channel closed? %t]\n", v, ok, ch.clo)
+			fmt.Printf("[value %s, ok %t]\n", v, ok)
 		}
 		wg.Done()
 	}()
