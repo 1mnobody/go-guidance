@@ -13,9 +13,13 @@ func ArrayDemo() {
 
 	fmt.Println(a)
 
-	// 初始化数组
+	// 初始化数组，注意：数组的初始化需要指定大小或者通过 ... 让编译器推断大小（大小根据初始化的元素确定）
 	array := [3]int{1, 2, 3}
+	array2 := [...]int{1, 2, 3, 4, 5}
+	array3 := [...]int{4: 2} // 长度为5，原因是最后一个元素的下标为4，值为2
 	fmt.Println(array)
+	fmt.Println(array2)
+	fmt.Println(array3)
 
 	// 数组的切片，半开区间，前闭后开的区间，下面的操作得到的是a[1],a[2],a[3] 3个元素
 	// 注意：切片并不会创建新的空间，只是展示原数组的数据，修改切片的数据会导致原数组的数据被修改（其他包含相同元素的切片也可以
@@ -48,6 +52,9 @@ func MakeDemo() {
 	s2 := make([]int, 5, 10) // 创建一个长度为5，容量为10的切片（底层数组长度为10）
 	fmt.Printf("切片s的长度 %v, 容量 %v    ", len(s), cap(s))
 	fmt.Printf("切片s2的长度 %v, 容量 %v\n", len(s2), cap(s2))
+	fmt.Printf("append前，s的地址：%p， 长度%v, 容量 %v   ", s, len(s), cap(s))
+	s = append(s, 1, 2, 3)
+	fmt.Printf("append后，s的地址：%p, 长度%v, 容量 %v\n", s, len(s), cap(s))
 
 	// 切片的切片
 	sliceOfSlice := [][]string{

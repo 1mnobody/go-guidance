@@ -21,8 +21,8 @@ func init() {
 func main() {
 	//fmt.Println("Hello World")
 	runBasic()
-	runMethod_Interface()
-	goroutine()
+	//runMethod_Interface()
+	//goroutine()
 }
 
 func runBasic() {
