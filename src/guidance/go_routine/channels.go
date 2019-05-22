@@ -2,6 +2,7 @@ package go_routine
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -99,4 +100,20 @@ func Select2() {
 		}
 
 	}
+}
+
+func SendNilErrorToChannel() {
+	ch := make(chan error)
+	var wg sync.WaitGroup
+	wg.Add(2)
+	go func() {
+		ch <- nil
+		wg.Done()
+	}()
+	go func() {
+		v := <-ch
+		fmt.Println("接收到一个nil:::: ", v, v == nil)
+		wg.Done()
+	}()
+	wg.Wait()
 }

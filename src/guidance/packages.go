@@ -20,9 +20,9 @@ func init() {
 
 func main() {
 	//fmt.Println("Hello World")
-	runBasic()
+	//runBasic()
 	//runMethod_Interface()
-	//goroutine()
+	goroutine()
 }
 
 func runBasic() {
@@ -175,6 +175,7 @@ func goroutine() {
 	go_routine.Select()
 	//go_routine.Select2()
 	go_routine.MutexDemo()
+	go_routine.SendNilErrorToChannel()
 	// 主线程休眠5s等待 所有的goroutine执行完
 	time.Sleep(5 * time.Second)
 }
