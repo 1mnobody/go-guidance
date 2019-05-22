@@ -31,7 +31,8 @@ func Sum_Invocation() {
 func Range_Close() {
 	c := make(chan int)
 	go produce(c)
-	// range会不停的获取信道c中的值，直到发送者关闭信道
+	// range会不停的获取信道c中的值，直到发送者关闭信道，
+	// range over一个channel时，只允许使用一个迭代变量（从channel中获取数据时可以接收到两个值：v, ok <-ch）
 	for x := range c {
 		fmt.Printf("%v  ", x)
 	}
