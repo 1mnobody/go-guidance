@@ -38,6 +38,8 @@ func main() {
 				name,
 			}
 			go func() {
+				// p.Run() 会将Worker推送到channel中，p中启动的两个goroutine会不断的
+				// 获取Worker并执行其Task()方法
 				p.Run(&np)
 				wg.Done()
 			}()
