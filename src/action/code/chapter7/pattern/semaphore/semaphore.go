@@ -154,7 +154,7 @@ func (rw *readerWriter) ReadUnlock(reader int) {
 func (rw *readerWriter) WriteLock() {
 	// 这里Add(1)，在ReadLock()中会Wait，从而进入写之后，新的read操作无法再进行
 	rw.write.Add(1)
-	// 写满缓冲区，这个时候不能再读了
+	// 写满缓冲区，如果存在正在读的routine,这里也会被阻塞，直到写满缓冲区，写满后，再次调用Acquire()也会被阻塞
 	rw.readerControl.Acquire(rw.maxReads)
 }
 
