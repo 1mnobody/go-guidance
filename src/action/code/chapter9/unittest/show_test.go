@@ -1,5 +1,5 @@
 package unittest
-
+// 单元测试源文件名称必须以_test结尾
 import (
 	"net/http"
 	"testing"
@@ -9,7 +9,7 @@ const (
 	checkMark = "\u2713"
 	ballotX   = "\u2717"
 )
-
+// 单元测试函数名称必须以Test开头且函数没有返回值
 // 运行测试时，可以看到输出的缩进与代码块保持一致
 func TestDownload(t *testing.T) {
 	url := "http://www.goinggo.net/feeds/posts/default?alt=rss"
