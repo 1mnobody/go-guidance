@@ -28,7 +28,7 @@ func Goid() int {
 	// 获取goroutine id
 	defer func() {
 		if err := recover(); err != nil {
-			fmt.Println("panic recover:panic info:%v", err)
+			fmt.Printf("panic recover:panic info:%v", err)
 		}
 	}()
 
