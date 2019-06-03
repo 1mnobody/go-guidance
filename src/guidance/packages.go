@@ -20,9 +20,9 @@ func init() {
 
 func main() {
 	//fmt.Println("Hello World")
-	//runBasic()
+	runBasic()
 	//runMethod_Interface()
-	goroutine()
+	//goroutine()
 }
 
 func runBasic() {
@@ -34,7 +34,8 @@ func runBasic() {
 	basic.Println("这是一个无返回值的函数")
 	fmt.Println(basic.Add(1, 2))
 	fmt.Println(basic.Swap("123", "abc"))
-	fmt.Println(basic.NamedRet(12))
+	x, y := basic.NamedRet(12)
+	fmt.Println("函数的命名返回值:::", x, y)
 	fmt.Println("使用一个函数作为另外一个函数的参数：", basic.FuncParam(add, 1, 2))
 
 	fmt.Println("-------- var --------")
